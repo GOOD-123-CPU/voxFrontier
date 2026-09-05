@@ -120,6 +120,7 @@ def test_manifest_roundtrip(tmp_path):
     write_manifest(out, data, seed=1, summary={"k": "v"})
     verdict = verify_manifest(out)
     assert verdict == {"table.csv": True}
+    assert verify_manifest(str(out)) == {"table.csv": True}
 
     # tamper -> verification fails
     pd.DataFrame({"b": [999]}).to_csv(table, index=False)

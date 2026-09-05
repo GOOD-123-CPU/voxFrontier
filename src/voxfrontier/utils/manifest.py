@@ -19,6 +19,7 @@ import logging
 import platform
 import sys
 from datetime import datetime, timezone
+from os import PathLike
 from pathlib import Path
 
 logger = logging.getLogger("voxfrontier.manifest")
@@ -50,13 +51,15 @@ def dependency_versions() -> dict[str, str]:
 
 
 def write_manifest(
-    output_dir: Path,
-    data_path: Path,
+    output_dir: str | PathLike[str],
+    data_path: str | PathLike[str],
     seed: int,
     summary: dict,
     started_at: datetime | None = None,
 ) -> Path:
     """Write ``manifest.json`` into ``output_dir`` and return its path."""
+    output_dir = Path(output_dir)
+    data_path = Path(data_path)
     tables = {}
     for csv in sorted(output_dir.glob("*.csv")):
         tables[csv.name] = sha256_file(csv)
@@ -81,8 +84,9 @@ def write_manifest(
     return out
 
 
-def verify_manifest(output_dir: Path) -> dict[str, bool]:
+def verify_manifest(output_dir: str | PathLike[str]) -> dict[str, bool]:
     """Re-hash local tables and compare against the stored manifest."""
+    output_dir = Path(output_dir)
     manifest_path = output_dir / "manifest.json"
     if not manifest_path.exists():
         raise FileNotFoundError(f"no manifest at {manifest_path}")
