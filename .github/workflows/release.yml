@@ -1,0 +1,74 @@
+name: Release
+
+# Publishes a GitHub Release with build artefacts when a version tag is
+# pushed. PyPI upload is prepared but opt-in: it only runs when the
+# PyPI publishing is opt-in and uses trusted publishing when enabled.
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build distributions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build tool
+        run: python -m pip install --upgrade pip build
+      - name: Build sdist and wheel
+        run: python -m build
+      - name: Check metadata
+        run: |
+          python -m pip install twine
+          python -m twine check dist/*
+      - name: Smoke-test the wheel in a clean venv
+        run: |
+          python -m venv /tmp/venv-smoke
+          /tmp/venv-smoke/bin/pip install dist/*.whl
+          /tmp/venv-smoke/bin/vxf --version
+          /tmp/venv-smoke/bin/vxf synth --help
+      - name: Upload build artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  github-release:
+    name: GitHub Release
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/*
+
+  pypi:
+    name: Publish to PyPI (optional)
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: pypi
+    if: ${{ vars.ENABLE_PYPI == 'true' }}
+    permissions:
+      id-token: write  # trusted publishing (OIDC)
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1

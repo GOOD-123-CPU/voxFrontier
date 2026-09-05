@@ -1,0 +1,60 @@
+{
+  "tool": "voxfrontier",
+  "generated_at": "2026-09-04T19:11:42.403272+00:00",
+  "started_at": "2026-09-04T19:10:40.320534+00:00",
+  "seed": 42,
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.0",
+    "matplotlib": "3.11.1",
+    "seaborn": "0.13.2",
+    "yaml": "6.0.3",
+    "pulp": "3.3.2",
+    "shap": "not-installed"
+  },
+  "input": {
+    "path": "synthetic_sessions.csv",
+    "sha256": "76e4fd1da140e333b5c8d3f5d02259a7ce1a2c332ed84aa9bba4c3cff22cb4c1"
+  },
+  "result_tables_sha256": {
+    "dea_efficiency_by_unit.csv": "b4c5252e5cf0955eb1e74c318bdb6ea5b81857eb65047fc7824106aa2b7d9a84",
+    "dea_model_summary.csv": "89451011f12d2f02b3f2cb6198725191d7217ea6a94b01e63d152f5b69a4c64a",
+    "dml_effects.csv": "30ea831d998d9d2a78a15ecd4783ab7029283c4c4e7c671238023f4893dc7d90",
+    "forest_importance.csv": "11bf714aaf0508ad123577a5fe32631c4efcb45c55884b2b9b9843b93f87bcb0",
+    "fwl_ols_benchmark.csv": "e4f540ee358c7ab1a562d0c891b2674ae1a0e8adfc2f44ae45f408731518f35f",
+    "mediation_analysis.csv": "070f2b03612a52426391791e147de2c8e3b059b149883c7a471b050dc6146e7f",
+    "quadratic_tests.csv": "c2c3825669fae5df56674cb762664b82ab913e186e1687b5b25c78744c8b4ec6",
+    "quantile_bands.csv": "310bae628154685e0629fa91d3a3cd312c0f8f148029e876333858f4c27988ff",
+    "scenario_simulation.csv": "7321762e5559b5724608c74873dc72909f798178fb677f1e897ae8c90ac03cf6",
+    "shapley_decomposition.csv": "e709f54b45d58ee6bd6320e8436ab6ba943a2330b03ea1413cd24813e4e46a33",
+    "subgroup_effects.csv": "8463ad759e9898ae1c237fc2b784b81fc16db7a2e041884c613700a873481f22",
+    "threshold_regression.csv": "4ab20ab5d4324326c2530b3851cf16ae63851137d2f4663ff41cfcef9b249131",
+    "tobit_mle.csv": "52eddd1d6ace37015f8510294ea4c35e49abc1351d7a5acb02d7a012e1925f3f",
+    "tobit_ols.csv": "cb810c21c007fc4052fbe2e6745bbc1dd37979ffeb7b5d6c52746dd89ac563f4",
+    "unit_diagnostics.csv": "955ce587da0959dda7972e0986370ad9ad2c296f84e824725766c6fb4cf537cf"
+  },
+  "summary": {
+    "n_sessions": 207,
+    "mean_bcc": 0.9308551014492753,
+    "efficient_units": 85,
+    "shapley_voice_share_pct": 79.21428677052617,
+    "dml_effects": {
+      "mean_f0": -0.0004222562785838414,
+      "hnr": -0.0018375616586292934,
+      "jitter": -0.04074838394534699,
+      "speech_rate": -0.028778736561769352
+    },
+    "u_valleys": {
+      "mean_f0": 344.481,
+      "hnr": 10.52313348338403,
+      "jitter": 2.6763545742899826,
+      "speech_rate": 6.209130912422837
+    },
+    "best_scenario": "conservative",
+    "best_scenario_gain": 0.00877081515691247
+  }
+}

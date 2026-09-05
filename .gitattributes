@@ -1,0 +1,25 @@
+# Normalise line endings: LF in the repository, OS-native in working copies.
+* text=auto
+
+# Source code
+*.py text eol=lf
+*.pyi text eol=lf
+
+# Config / docs
+*.md text
+*.toml text
+*.yaml text eol=lf
+*.yml text eol=lf
+*.cff text eol=lf
+Makefile text eol=lf
+Dockerfile text eol=lf
+
+# Windows scripts (if ever added) must keep CRLF
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# Binaries
+*.png binary
+*.jpg binary
+*.xlsx binary
+*.whl binary

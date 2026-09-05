@@ -1,0 +1,45 @@
+# Pre-commit hooks: fast, local, non-invasive.
+# Install once:  pip install -e ".[dev]" && pre-commit install
+# Run manually:  pre-commit run --all-files
+#
+# NOTE: hooks intentionally avoid any sensitive-data scanning that would
+# upload code to third-party services; the private-detect approach below is
+# fully local (regex-only).
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: ["--maxkb=512"]
+      - id: check-merge-conflict
+      - id: debug-statements
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # Local, privacy-only guard: blocks common personal-data patterns before
+  # they ever reach git history (complements the CI audit job).
+  # The pattern is split across concatenated string chunks so the hook
+  # definition never matches itself (self-match guard).
+  - repo: local
+    hooks:
+      - id: no-private-paths
+        name: no personal absolute paths / usernames
+        entry: >
+          bash -c 'PAT=$(printf "%s%s%s%s%s%s%s" "C:\\\\Us"
+          "ers\\\\|C:/Us" "ers/" "|/Us" "ers/" "|D:/stat" "istical"); if grep -rInE
+          "$PAT" --include="*.py" --include="*.md" --include="*.yaml"
+          --include="*.toml" src tests config docs README.md 2>/dev/null; then
+          echo "PRIVACY: personal path/username found above"; exit 1; fi'
+        language: system
+        pass_filenames: false
+        files: ^(src|tests|config|docs)/|README\.md$

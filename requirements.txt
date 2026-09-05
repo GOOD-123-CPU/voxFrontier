@@ -1,0 +1,15 @@
+# Core (required)
+numpy>=1.23,<3
+pandas>=1.5,<3
+scipy>=1.9
+scikit-learn>=1.2
+matplotlib>=3.6
+seaborn>=0.12
+openpyxl>=3.1
+pyyaml>=6.0
+
+# Optional but recommended:
+# - pulp: exact MILP backend for DEA (the default HiGHS backend via scipy works without it)
+#   pip install pulp
+# - shap: SHAP explainability plots (pipeline gracefully skips if absent)
+#   pip install shap

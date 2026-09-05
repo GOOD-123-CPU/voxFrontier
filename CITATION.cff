@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use VoxFrontier, please cite it as below."
+title: "VoxFrontier: causal and efficiency-frontier analytics for voice-driven livestream performance"
+type: software
+authors:
+  - name: "VoxFrontier contributors"
+repository-code: "https://github.com/GOOD-123-CPU/voxFrontier"
+abstract: >-
+  An open, fully reproducible research pipeline that quantifies how
+  live-streamer voice characteristics relate to streaming efficiency via
+  DEA efficiency measurement, exact Shapley attribution, threshold-regime
+  modelling, Double Machine Learning causal estimation and counterfactual
+  simulation — executed end-to-end on privacy-safe synthetic data.
+keywords:
+  - DEA
+  - Shapley
+  - Double Machine Learning
+  - threshold regression
+  - conformal prediction
+  - counterfactual simulation
+license: MIT
+version: 1.0.0
+date-released: "2026-09-04"

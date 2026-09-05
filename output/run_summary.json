@@ -1,0 +1,20 @@
+{
+  "n_sessions": 207,
+  "mean_bcc": 0.9308551014492753,
+  "efficient_units": 85,
+  "shapley_voice_share_pct": 79.21428677052617,
+  "dml_effects": {
+    "mean_f0": -0.0004222562785838414,
+    "hnr": -0.0018375616586292934,
+    "jitter": -0.04074838394534699,
+    "speech_rate": -0.028778736561769352
+  },
+  "u_valleys": {
+    "mean_f0": 344.481,
+    "hnr": 10.52313348338403,
+    "jitter": 2.6763545742899826,
+    "speech_rate": 6.209130912422837
+  },
+  "best_scenario": "conservative",
+  "best_scenario_gain": 0.00877081515691247
+}

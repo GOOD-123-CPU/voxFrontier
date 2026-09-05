@@ -1,0 +1,2 @@
+# VoxFrontier ships inline type annotations; this marker advertises them
+# to type checkers and IDEs (PEP 561).
