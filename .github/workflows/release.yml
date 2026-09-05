@@ -1,7 +1,6 @@
 name: Release
 
-# Publishes a GitHub Release with build artefacts when a version tag is
-# pushed. PyPI upload is prepared but opt-in: it only runs when the
+# Publishes a GitHub Release with build artefacts when a version tag is pushed.
 # PyPI publishing is opt-in and uses trusted publishing when enabled.
 
 on:
@@ -17,8 +16,8 @@ jobs:
     name: Build distributions
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install build tool
@@ -36,7 +35,7 @@ jobs:
           /tmp/venv-smoke/bin/vxf --version
           /tmp/venv-smoke/bin/vxf synth --help
       - name: Upload build artefacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v8
         with:
           name: dist
           path: dist/
@@ -46,13 +45,13 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
           files: dist/*
@@ -66,7 +65,7 @@ jobs:
     permissions:
       id-token: write  # trusted publishing (OIDC)
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
