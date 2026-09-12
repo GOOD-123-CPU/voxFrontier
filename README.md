@@ -40,9 +40,9 @@ simulation results, figures, and a reproducibility manifest.
 
 ### Why It Is Useful
 
-Most voice-performance analyses stop at correlation or feature importance.
-VoxFrontier is built to make stronger claims while staying transparent about
-assumptions:
+VoxFrontier connects several analytical stages so their outputs can be
+inspected together. Interpretation depends on the data-generating process
+and the assumptions of each method:
 
 | Need | VoxFrontier provides |
 |---|---|
@@ -52,6 +52,18 @@ assumptions:
 | Estimate causal effects | Cross-fitted Double Machine Learning with Neyman-orthogonal scores and FWL/OLS benchmarks |
 | Evaluate interventions | Six counterfactual scenarios with uncertainty-aware diagnostics |
 | Reproduce results | Seeded synthetic data, deterministic outputs, and SHA-256 run manifests |
+
+### Interpretation and Limits
+
+The bundled results are **synthetic-data demonstrations**, not empirical evidence about a real platform. The generator explicitly embeds nonlinear and threshold patterns; recovering them demonstrates behavior under that design, not independent discovery.
+
+- DEA scores measure relative efficiency within the selected sample and input/output specification.
+- Shapley shares and feature importance describe model attribution; they do not establish causal effects.
+- DML estimates require identification assumptions, including adequate observed controls and treatment variation. Cross-fitting alone does not remove unobserved confounding.
+- Scenario outputs are predictions under changed inputs, not validated intervention outcomes.
+- A fixed seed and matching file hashes help audit a run; they do not establish scientific validity or guarantee identical results across dependency versions.
+
+Read [methodology](docs/methodology.md) alongside the result tables before interpreting estimates.
 
 ### Quick Start
 
@@ -261,9 +273,21 @@ VoxFrontier 是一个面向研究和复现的 Python 分析流水线，用来回
 | 谁更有效率 | 投入导向 DEA，CCR/BCC，规模效率，超效率排名 |
 | 声音贡献多大 | 精确 Shapley 分解，随机森林重要性，可选 SHAP，Tobit，中介分析 |
 | 是否存在非线性机制 | 二次 U 型检验，门槛回归，分位数带，亚组交互 |
-| 去混淆后的净效应是多少 | 交叉拟合 Double Machine Learning，FWL/OLS 基准 |
+| 在识别假设下估计效应 | 交叉拟合 Double Machine Learning，FWL/OLS 基准 |
 | 如果干预声音变量会怎样 | 六组反事实场景模拟和不确定性诊断 |
 | 结果能否复现 | 固定随机种子，结果表哈希，运行 manifest |
+
+### 结果解读与边界
+
+仓库结果是**合成数据上的方法演示**，不代表真实平台的实证结论。数据生成器预设了非线性和门槛关系；恢复这些模式反映的是方法在该生成机制下的表现。
+
+- DEA 得分取决于参照样本和投入产出设定，表示相对效率。
+- Shapley 份额与特征重要性属于模型归因，不能直接解释为因果贡献。
+- DML 的因果解释依赖充分观测控制变量、处理变量具有足够变异等识别假设；交叉拟合本身不能消除未观测混杂。
+- 场景模拟是修改输入后的模型预测，尚不能视为经过验证的真实干预效果。
+- 固定种子和文件哈希帮助核对复现记录；跨依赖版本的数值一致性与方法有效性仍需另行检查。
+
+阅读结果时请同时查看 [方法说明](docs/methodology.md) 中的数据生成机制与估计量设定。
 
 ### 快速开始
 
